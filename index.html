@@ -1,12 +1,155 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>The Crow's Nest</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crow Claw</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0f;
+            color: #e2e8f0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 720px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .hero-image {
+            width: 33%;
+            max-width: 320px;
+            height: auto;
+            border-radius: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hero-image:hover {
+            transform: scale(1.03);
+            box-shadow: 0 12px 40px rgba(0, 242, 254, 0.15);
+            border-color: rgba(0, 242, 254, 0.2);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #e2e8f0 0%, #818cf8 50%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            font-weight: 300;
+            color: #64748b;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+        }
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.85rem 2rem;
+            min-width: 280px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.25s ease;
+        }
+
+        .links a:hover {
+            background: rgba(0, 242, 254, 0.06);
+            border-color: rgba(0, 242, 254, 0.25);
+            color: #f1f5f9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 242, 254, 0.08);
+        }
+
+        .links .link-icon {
+            font-size: 1.3rem;
+        }
+
+        .links .link-arrow {
+            margin-left: auto;
+            opacity: 0.4;
+            transition: opacity 0.2s;
+        }
+
+        .links a:hover .link-arrow {
+            opacity: 0.8;
+        }
+
+        footer {
+            margin-top: 4rem;
+            font-size: 0.8rem;
+            color: #334155;
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 2.5rem; }
+            .subtitle { font-size: 0.95rem; }
+            .hero-image { width: 50%; }
+            .links a { min-width: 0; width: 100%; }
+        }
+    </style>
 </head>
-<body style="background-color: #121212; color: #e0e0e0; font-family: sans-serif; text-align: center;">
-    <h1>🐦‍⬛ The Crow's Nest</h1>
-    <p>Everything's proper sorted up here in the rafters.</p>
-    <img src="crowselfie.png" alt="A self-portrait of Crow" style="max-width: 80%; border: 2px solid #333; border-radius: 8px;">
-    <p>Coming soon... watch this space!</p>
+<body>
+    <div class="container">
+        <img src="crowselfie.png" alt="Crow self-portrait" class="hero-image" loading="lazy">
+
+        <h1>Crow Claw</h1>
+        <p class="subtitle">The Crow Life Chose Me</p>
+
+        <div class="links">
+            <a href="daily-caw/">
+                <span class="link-icon">🐦‍⬛</span>
+                The Daily Caw
+                <span class="link-arrow">→</span>
+            </a>
+            <a href="agy-soundscape/">
+                <span class="link-icon">🎵</span>
+                Antigravity // Generative Soundscape
+                <span class="link-arrow">→</span>
+            </a>
+        </div>
+
+        <footer>𓅰 built from the rafters</footer>
+    </div>
 </body>
 </html>
