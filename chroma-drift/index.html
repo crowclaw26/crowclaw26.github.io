@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Antigravity // Generative Soundscape</title>
+    <title>Chroma Drift // Generative Soundscape</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -98,10 +98,18 @@
             font-family: var(--font-mono);
             font-size: 28px;
             font-weight: 700;
-            letter-spacing: 6px;
+            letter-spacing: 12px;
             color: var(--accent-cyan);
             text-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
             animation: glow-pulse 3s infinite ease-in-out;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 480px) {
+            .splash-logo {
+                font-size: 20px;
+                letter-spacing: 6px;
+            }
         }
 
         .splash-subtitle {
@@ -233,6 +241,34 @@
             display: flex;
             align-items: center;
             gap: 24px;
+        }
+
+        .header-btn {
+            background: transparent;
+            border: 1px solid var(--panel-border);
+            color: var(--text-muted);
+            width: 34px;
+            height: 34px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .header-btn:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            box-shadow: 0 0 8px rgba(0, 242, 254, 0.2);
+            background: rgba(0, 242, 254, 0.05);
+        }
+
+        .header-btn.active {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            background: rgba(0, 242, 254, 0.1);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
         }
 
         .status-indicator {
@@ -699,52 +735,7 @@
             background: rgba(0, 242, 254, 0.2);
         }
 
-        /* Footer Visualizer Area */
-        footer {
-            height: 90px;
-            padding: 0 20px 20px 20px;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
 
-        .visualizer-container {
-            width: 580px;
-            max-width: 90vw;
-            background: var(--panel-bg);
-            border: 1px solid var(--panel-border);
-            border-radius: 8px;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 6px 12px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            transition: border-color 0.3s ease;
-        }
-
-        .visualizer-container:hover {
-            border-color: var(--panel-border-hover);
-        }
-
-        .visualizer-title {
-            font-family: var(--font-mono);
-            font-size: 9px;
-            letter-spacing: 1.5px;
-            color: var(--text-muted);
-            text-align: center;
-            text-transform: uppercase;
-        }
-
-        #visualizer-canvas {
-            width: 100%;
-            height: 44px;
-            background: rgba(5, 7, 13, 0.7);
-            border-radius: 4px;
-            border: 1px solid rgba(255, 255, 255, 0.02);
-        }
 
         /* Keyframes */
         @keyframes pulse-dot {
@@ -761,27 +752,74 @@
 
         /* Mobile Adjustments */
         @media (max-width: 768px) {
+            header {
+                padding: 0 12px;
+                height: 56px;
+            }
+            .header-title {
+                font-size: 12px;
+                letter-spacing: 1px;
+            }
+            .header-subtitle {
+                display: none;
+            }
+            .header-stats {
+                gap: 12px;
+            }
+            .status-indicator span:last-child {
+                display: none;
+            }
+            .header-stat-item {
+                font-size: 10px;
+            }
             .panels-container {
-                flex-direction: column;
-                padding: 10px;
-                gap: 10px;
-                overflow-y: auto;
+                position: relative;
+                padding: 0;
+                overflow: hidden;
+                pointer-events: none;
             }
-            .panel {
-                width: 100%;
-                height: 48%;
+            .panel, .right-panel {
+                position: absolute;
+                width: 290px;
+                height: calc(100% - 30px);
+                top: 15px;
+                bottom: 15px;
+                z-index: 20;
             }
-            .right-panel {
-                width: 100%;
+            #left-panel {
+                left: 10px;
             }
+            #right-panel {
+                right: 10px;
+            }
+            /* Collapsed States on Mobile */
+            .panel.collapsed-left {
+                transform: translateX(calc(-100% - 10px));
+                opacity: 0;
+            }
+            .panel.collapsed-right {
+                transform: translateX(calc(100% + 10px));
+                opacity: 0;
+            }
+            /* Show and style toggle buttons on mobile */
             .toggle-btn {
-                display: none; /* Hide sidebar toggles on small mobile screens */
+                display: flex !important;
+                width: 36px;
+                height: 64px;
+                font-size: 16px;
+                font-weight: 700;
+                border-radius: 0 8px 8px 0;
+                align-items: center;
+                justify-content: center;
             }
-            footer {
-                padding: 10px;
+            .left-toggle {
+                right: -36px;
+                border-left: none;
             }
-            .visualizer-container {
-                width: 100%;
+            .right-toggle {
+                left: -36px;
+                border-right: none;
+                border-radius: 8px 0 0 8px;
             }
         }
     </style>
@@ -794,7 +832,7 @@
     <!-- Splash Screen (Resume Audio Context Prompt) -->
     <div id="splash-overlay">
         <div class="splash-content">
-            <div class="splash-logo">A N T I G R A V I T Y</div>
+            <div class="splash-logo">CHROMA DRIFT</div>
             <div class="splash-subtitle">Generative Music Soundscape</div>
             <div class="splash-description">
                 An interactive generative audio-visual synth. Click and hold to grow glowing musical metaballs. Drag while holding to steer; release to launch with momentum.
@@ -805,9 +843,10 @@
                     <li><span>Drag while holding</span> to move the growing blob; release imparts velocity from your motion.</li>
                     <li><span>Collide</span> blobs to synthesize chime chords.</li>
                     <li><span>Autoplay</span> generates ambient notes in the background.</li>
+                    <li><span>Keyboard Shortcuts</span>: [R] clear blobs | [C] toggle controls | [L] toggle logs.</li>
                 </ul>
             </div>
-            <button class="splash-btn" id="init-btn">INITIALIZE SOUNDSCAPE</button>
+            <button class="splash-btn" id="init-btn">LET'S GO!</button>
         </div>
     </div>
 
@@ -816,10 +855,25 @@
         <!-- Header -->
         <header>
             <div class="header-title-container">
-                <div class="header-title">ANTIGRAVITY // GENERATIVE SOUNDSCAPE</div>
+                <div class="header-title">CHROMA DRIFT // GENERATIVE SOUNDSCAPE</div>
                 <div class="header-subtitle">INTERACTIVE MUSIC TERMINAL</div>
             </div>
             <div class="header-stats">
+                <button id="header-toggle-left" class="header-btn" title="Control Center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                </button>
+                <button id="header-toggle-right" class="header-btn" title="System Logs">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                </button>
                 <div class="status-indicator" id="status-indicator">
                     <span class="status-dot active"></span>
                     <span>AUDIO: ACTIVE</span>
@@ -833,8 +887,8 @@
         <!-- Sidebar Panels -->
         <div class="panels-container">
             <!-- Left panel: Synthesizer Controls -->
-            <aside class="panel" id="left-panel">
-                <button class="toggle-btn left-toggle" id="left-panel-toggle" title="Toggle Control Panel">&lt;</button>
+            <aside class="panel collapsed-left" id="left-panel">
+                <button class="toggle-btn left-toggle" id="left-panel-toggle" title="Toggle Control Panel">&gt;</button>
                 <div class="panel-header">
                     <div class="panel-title">CONTROL CENTER</div>
                 </div>
@@ -897,6 +951,15 @@
                         </label>
                     </div>
 
+                    <!-- Ambient drone toggle -->
+                    <div class="toggle-row">
+                        <span>AMBIENT BACKGROUND DRONE</span>
+                        <label class="switch">
+                            <input type="checkbox" id="drone-toggle">
+                            <span class="slider-toggle"></span>
+                        </label>
+                    </div>
+
                     <!-- Secondary Actions -->
                     <button class="action-btn-secondary" id="clear-btn">CLEAR SOUNDSCAPE</button>
 
@@ -914,8 +977,8 @@
             </aside>
 
             <!-- Right panel: Terminal Monitors -->
-            <aside class="panel" id="right-panel">
-                <button class="toggle-btn right-toggle" id="right-panel-toggle" title="Toggle Terminal Panel">&gt;</button>
+            <aside class="panel collapsed-right" id="right-panel">
+                <button class="toggle-btn right-toggle" id="right-panel-toggle" title="Toggle Terminal Panel">&lt;</button>
                 <div class="panel-header">
                     <div class="panel-title">SYSTEM MONITOR LOGS</div>
                 </div>
@@ -929,13 +992,7 @@
             </aside>
         </div>
 
-        <!-- Bottom bar (Realtime Oscilloscope Visualizer) -->
-        <footer>
-            <div class="visualizer-container">
-                <div class="visualizer-title">SYSTEM OUTPUT WAVEFORM // OSCILLOSCOPE</div>
-                <canvas id="visualizer-canvas"></canvas>
-            </div>
-        </footer>
+
     </div>
 
     <!-- WebGL Shaders and Audio Logic -->
@@ -966,9 +1023,15 @@
                 vec2 st = gl_FragCoord.xy / u_resolution.xy;
                 float aspect = u_resolution.x / u_resolution.y;
                 
-                // Aspect ratio corrected point for distance metrics
+                // Aspect ratio corrected point for distance metrics based on minimum dimension
                 vec2 p = st;
-                p.x *= aspect;
+                vec2 scale = vec2(1.0);
+                if (aspect >= 1.0) {
+                    scale.x = aspect;
+                } else {
+                    scale.y = 1.0 / aspect;
+                }
+                p *= scale;
 
                 float sum = 0.0;
                 vec3 color_sum = vec3(0.0);
@@ -978,8 +1041,7 @@
                     if (i >= u_blob_count) break;
                     
                     vec3 b = u_blobs[i];
-                    vec2 blob_pos = b.xy;
-                    blob_pos.x *= aspect;
+                    vec2 blob_pos = b.xy * scale;
                     
                     float r = b.z;
                     float d = distance(p, blob_pos);
@@ -993,7 +1055,7 @@
                     weight_sum += val;
                 }
 
-                // Antigravity Brand Background (deep space blue-black)
+                // Chroma Drift Brand Background (deep space blue-black)
                 vec3 bg_color = vec3(0.024, 0.031, 0.059); // #06080f
                 vec3 final_color = bg_color;
                 
@@ -1214,7 +1276,6 @@
         let audioInitialized = false;
         let isAudioFallback = false;
         let audioFallback = null;
-        let analyser = null;
         let delay = null;
         let reverb = null;
         let droneSynth = null;
@@ -1309,6 +1370,7 @@
         const decaySlider = document.getElementById('decay-slider');
         const decayValText = document.getElementById('decay-val');
         const autoplayToggle = document.getElementById('autoplay-toggle');
+        const droneToggle = document.getElementById('drone-toggle');
         const clearBtn = document.getElementById('clear-btn');
         const playPauseBtn = document.getElementById('play-pause-btn');
         const initBtn = document.getElementById('init-btn');
@@ -1316,14 +1378,14 @@
         const appContainer = document.getElementById('app-container');
         const consoleLogs = document.getElementById('console-logs');
         const blobCountStat = document.getElementById('blob-count-stat');
-        const visualizerCanvas = document.getElementById('visualizer-canvas');
-        const visCtx = visualizerCanvas.getContext('2d');
 
         // Collapsible UI panels
         const leftPanel = document.getElementById('left-panel');
         const rightPanel = document.getElementById('right-panel');
         const leftPanelToggle = document.getElementById('left-panel-toggle');
         const rightPanelToggle = document.getElementById('right-panel-toggle');
+        const headerToggleLeftBtn = document.getElementById('header-toggle-left');
+        const headerToggleRightBtn = document.getElementById('header-toggle-right');
 
         // --- Helper: Console Log Print ---
         function logToTerminal(category, message, colorClass = '') {
@@ -1359,16 +1421,57 @@
         }
 
         // --- UI Listeners (Pre-init) ---
-        // Toggle side panels
-        leftPanelToggle.addEventListener('click', () => {
-            leftPanel.classList.toggle('collapsed-left');
-            leftPanelToggle.textContent = leftPanel.classList.contains('collapsed-left') ? '>' : '<';
-        });
+        function toggleLeftPanel(open) {
+            const currentlyCollapsed = leftPanel.classList.contains('collapsed-left');
+            const shouldCollapse = open !== undefined ? !open : !currentlyCollapsed;
+            
+            if (shouldCollapse) {
+                leftPanel.classList.add('collapsed-left');
+                leftPanelToggle.textContent = '>';
+                if (headerToggleLeftBtn) headerToggleLeftBtn.classList.remove('active');
+            } else {
+                leftPanel.classList.remove('collapsed-left');
+                leftPanelToggle.textContent = '<';
+                if (headerToggleLeftBtn) headerToggleLeftBtn.classList.add('active');
+                
+                // Opening left closes right
+                toggleRightPanel(false);
+            }
+        }
 
-        rightPanelToggle.addEventListener('click', () => {
-            rightPanel.classList.toggle('collapsed-right');
-            rightPanelToggle.textContent = rightPanel.classList.contains('collapsed-right') ? '<' : '>';
-        });
+        function toggleRightPanel(open) {
+            const currentlyCollapsed = rightPanel.classList.contains('collapsed-right');
+            const shouldCollapse = open !== undefined ? !open : !currentlyCollapsed;
+            
+            if (shouldCollapse) {
+                rightPanel.classList.add('collapsed-right');
+                rightPanelToggle.textContent = '<';
+                if (headerToggleRightBtn) headerToggleRightBtn.classList.remove('active');
+            } else {
+                rightPanel.classList.remove('collapsed-right');
+                rightPanelToggle.textContent = '>';
+                if (headerToggleRightBtn) headerToggleRightBtn.classList.add('active');
+                
+                // Opening right closes left
+                toggleLeftPanel(false);
+            }
+        }
+
+        // Toggle side panels
+        leftPanelToggle.addEventListener('click', () => toggleLeftPanel());
+        rightPanelToggle.addEventListener('click', () => toggleRightPanel());
+
+        // Header button listeners
+        if (headerToggleLeftBtn) {
+            headerToggleLeftBtn.addEventListener('click', () => toggleLeftPanel());
+        }
+        if (headerToggleRightBtn) {
+            headerToggleRightBtn.addEventListener('click', () => toggleRightPanel());
+        }
+
+        // Collapse by default on load
+        toggleLeftPanel(false);
+        toggleRightPanel(false);
 
         // --- Initialize WebGL Engine ---
         function initWebGL() {
@@ -1535,9 +1638,7 @@
             lfo.connect(droneFilter.frequency);
             lfo.start();
 
-            // Set up Tone.js Analyser
-            analyser = new Tone.Analyser("waveform", 128);
-            reverb.connect(analyser); // Analyze output of reverb
+
 
             // Set Initial Volume
             const vol = parseFloat(volumeSlider.value);
@@ -1549,29 +1650,7 @@
             isAudioFallback = true;
             audioFallback = new NativeAudioFallback();
             
-            // Create fallback analysis node
-            const ctx = audioFallback.ctx;
-            const fallbackAnalyser = ctx.createAnalyser();
-            fallbackAnalyser.fftSize = 256;
-            
-            // Route output through fallback analyser
-            audioFallback.masterGain.disconnect();
-            audioFallback.masterGain.connect(fallbackAnalyser);
-            fallbackAnalyser.connect(ctx.destination);
-            
-            // Mock Tone.js Analyser API
-            analyser = {
-                getValue: () => {
-                    const dataArray = new Uint8Array(fallbackAnalyser.frequencyBinCount);
-                    fallbackAnalyser.getByteTimeDomainData(dataArray);
-                    
-                    const floatArray = new Float32Array(dataArray.length);
-                    for (let i = 0; i < dataArray.length; i++) {
-                        floatArray[i] = (dataArray[i] - 128) / 128;
-                    }
-                    return floatArray;
-                }
-            };
+
             
             const vol = parseFloat(volumeSlider.value);
             audioFallback.setVolume(vol / 100);
@@ -1620,9 +1699,27 @@
             }
         }
 
+        // --- Stop Ambient Drone Notes ---
+        function stopDroneAudio() {
+            if (!audioInitialized) return;
+            if (isAudioFallback) {
+                audioFallback.stopDrone();
+            } else {
+                if (activeDroneNotes.length > 0) {
+                    droneSynth.triggerRelease(activeDroneNotes);
+                    activeDroneNotes = [];
+                }
+            }
+        }
+
         // --- Update Ambient Drone Notes ---
         function updateDroneNotes() {
             if (!audioInitialized) return;
+
+            if (!droneToggle.checked) {
+                stopDroneAudio();
+                return;
+            }
 
             const scaleObj = SCALES[currentScaleKey];
             const droneNotes = [scaleObj.notes[0], scaleObj.notes[1], scaleObj.notes[2]];
@@ -1686,10 +1783,15 @@
                     const b2 = blobs[j];
                     if (b2.isMerged || b2.growing) continue;
 
-                    // Compute aspect-corrected distance
+                    // Compute aspect-corrected distance based on minimum dimension
                     const aspect = canvas.width / canvas.height;
-                    const dx = (b1.x - b2.x) * aspect;
-                    const dy = b1.y - b2.y;
+                    let dx = b1.x - b2.x;
+                    let dy = b1.y - b2.y;
+                    if (aspect >= 1.0) {
+                        dx *= aspect;
+                    } else {
+                        dy /= aspect;
+                    }
                     const dist = Math.sqrt(dx * dx + dy * dy);
 
                     // Merge when centers cross below 82% of combined radii
@@ -1789,57 +1891,6 @@
             gl.drawArrays(gl.TRIANGLES, 0, 6);
         }
 
-        // --- Draw Realtime Oscilloscope ---
-        function drawOscilloscope() {
-            const width = visualizerCanvas.width = visualizerCanvas.parentElement.clientWidth;
-            const height = visualizerCanvas.height = 44;
-
-            visCtx.clearRect(0, 0, width, height);
-
-            if (!audioInitialized || isPaused) {
-                // Flat standby baseline line
-                visCtx.beginPath();
-                visCtx.lineWidth = 1.5;
-                visCtx.strokeStyle = 'rgba(0, 242, 254, 0.2)';
-                visCtx.moveTo(0, height / 2);
-                visCtx.lineTo(width, height / 2);
-                visCtx.stroke();
-                return;
-            }
-
-            let values;
-            try {
-                values = analyser.getValue();
-            } catch (e) {
-                return;
-            }
-
-            visCtx.beginPath();
-            visCtx.lineWidth = 1.8;
-            visCtx.strokeStyle = '#00f2fe';
-            visCtx.shadowBlur = 8;
-            visCtx.shadowColor = '#00f2fe';
-
-            const sliceWidth = width / values.length;
-            let x = 0;
-
-            for (let i = 0; i < values.length; i++) {
-                const v = values[i];
-                const y = (v * 0.75 + 1.0) * (height / 2.0);
-
-                if (i === 0) {
-                    visCtx.moveTo(x, y);
-                } else {
-                    visCtx.lineTo(x, y);
-                }
-                x += sliceWidth;
-            }
-
-            visCtx.lineTo(width, height / 2.0);
-            visCtx.stroke();
-            visCtx.shadowBlur = 0; // Reset canvas shadows
-        }
-
         // --- Main Engine Loop ---
         function mainLoop(time) {
             requestAnimationFrame(mainLoop);
@@ -1858,7 +1909,6 @@
 
             updatePhysics();
             renderWebGL(time);
-            drawOscilloscope();
 
             // Sequenced Melody Generator
             if (audioInitialized && autoplayToggle.checked && !isPaused) {
@@ -2072,6 +2122,25 @@
             }
         });
 
+        // --- Keyboard Controls ---
+        window.addEventListener('keydown', (e) => {
+            if (!audioInitialized) return;
+
+            const key = e.key.toLowerCase();
+            if (key === 'r') {
+                blobs = [];
+                growingBlob = null;
+                mouseHistory = [];
+                logToTerminal('SYSTEM', 'Cleared all active visual elements via [R] shortcut', 'muted');
+            } else if (key === 'c') {
+                toggleLeftPanel();
+                logToTerminal('SYSTEM', `Control center ${leftPanel.classList.contains('collapsed-left') ? 'closed' : 'opened'} via [C] shortcut`, 'muted');
+            } else if (key === 'l') {
+                toggleRightPanel();
+                logToTerminal('SYSTEM', `System monitor logs ${rightPanel.classList.contains('collapsed-right') ? 'closed' : 'opened'} via [L] shortcut`, 'muted');
+            }
+        });
+
         // --- UI Settings Controls Bindings ---
         // Volume
         volumeSlider.addEventListener('input', (e) => {
@@ -2199,6 +2268,19 @@
             logToTerminal('SYSTEM', `Autoplay sequencer ${e.target.checked ? 'ENABLED' : 'DISABLED'}`, 'muted');
         });
 
+        // Drone toggle listener
+        droneToggle.addEventListener('change', (e) => {
+            const enabled = e.target.checked;
+            logToTerminal('SYSTEM', `Ambient background drone ${enabled ? 'ENABLED' : 'DISABLED'}`, 'muted');
+            if (audioInitialized) {
+                if (enabled) {
+                    updateDroneNotes();
+                } else {
+                    stopDroneAudio();
+                }
+            }
+        });
+
         // --- Soundscape Presets System ---
         const PRESETS = {
             deepSpace: {
@@ -2206,21 +2288,24 @@
                 volume: 80,
                 tempo: 0.4,
                 decay: 1, // None
-                autoplay: true
+                autoplay: true,
+                drone: false
             },
             chimeGarden: {
                 scale: 'peaceful',
                 volume: 65,
                 tempo: 1.6,
                 decay: 4, // Fast
-                autoplay: true
+                autoplay: true,
+                drone: false
             },
             mysticDrone: {
                 scale: 'mystical',
                 volume: 75,
                 tempo: 0.2,
                 decay: 2, // Slow
-                autoplay: true
+                autoplay: true,
+                drone: true
             }
         };
 
@@ -2250,6 +2335,7 @@
                 decaySlider.dispatchEvent(new Event('input')); // updates label and JS variables
 
                 autoplayToggle.checked = preset.autoplay;
+                droneToggle.checked = !!preset.drone;
 
                 if (audioInitialized) {
                     if (isAudioFallback) {
@@ -2305,7 +2391,7 @@
                 setTimeout(spawnRandomBlob, i * 400);
             }
 
-            logToTerminal('SYSTEM', 'Antigravity core audio context started', 'green');
+            logToTerminal('SYSTEM', 'Chroma Drift core audio context started', 'green');
             logToTerminal('SYSTEM', `Pipeline channel: ${isAudioFallback ? 'Native Audio Context Fallback' : 'Tone.js Multi-channel DSP'}`, 'cyan');
 
             // Clear initialization overlap display
