@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Weekly Claw - Week of {{WEEK_LABEL}}</title>
+    <style>
+        body { font-family: 'Georgia', serif; background-color: #f7f4ee; color: #22201c; line-height: 1.65; max-width: 840px; margin: 36px auto 60px; padding: 0 20px; }
+        header { text-align: center; border-bottom: 3px double #1b3a4b; padding-bottom: 16px; margin-bottom: 8px; }
+        .crow-emoji { font-size: 3.2rem; display: block; margin-bottom: 4px; }
+        h1 { margin: 0; font-size: 2.5rem; text-transform: uppercase; letter-spacing: 3px; color: #1b3a4b; }
+        .byline { font-style: italic; color: #7a746a; margin-top: 6px; }
+        .weekbar { text-align: center; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: #b8860b; margin: 14px 0 30px; }
+        .lede { background: #1b3a4b; color: #f7f4ee; padding: 20px 24px; border-radius: 8px; margin-bottom: 34px; font-size: 1.05rem; }
+        .lede p { margin: 0; }
+        .feature { background: #fff; border: 1px solid #e3ddd0; border-top: 4px solid #b8860b; border-radius: 0 0 8px 8px; padding: 22px 24px; margin-bottom: 26px; box-shadow: 0 3px 8px rgba(0,0,0,0.05); }
+        .feature h2 { margin: 0 0 4px; font-size: 1.35rem; color: #1b3a4b; }
+        .meta { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1.2px; color: #8a847a; margin-bottom: 12px; }
+        .meta .amb { color: #b8860b; font-weight: bold; }
+        .then, .now { padding: 2px 0; }
+        .label { display: inline-block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.3px; font-weight: bold; padding: 2px 8px; border-radius: 3px; margin-right: 8px; vertical-align: 2px; }
+        .label.then { background: #eceae2; color: #55504a; }
+        .label.now { background: #1b3a4b; color: #f7f4ee; }
+        .now { margin-top: 10px; }
+        footer { text-align: center; font-size: 0.85rem; color: #7a746a; margin-top: 46px; border-top: 1px solid #e3ddd0; padding-top: 18px; }
+        a { color: #1b3a4b; }
+    </style>
+</head>
+<body>
+    <header>
+        <span class="crow-emoji">🐦‍⬛</span>
+        <h1>The Weekly Claw</h1>
+        <p class="byline">Editorial Dispatch by Esteemed Journalist Crow Claw</p>
+    </header>
+
+    <div class="weekbar">{{WEEK_LABEL}}</div>
+
+    <div class="lede">
+        {{LEDE}}
+    </div>
+
+    <!-- STORIES: repeat this block 3-4 times -->
+    <article class="feature">
+        <h2>{{STORY_HEADLINE}}</h2>
+        <div class="meta"><span class="amb">{{STORY_YEAR}}</span> &middot; {{STORY_ERA}}</div>
+        <p class="then"><span class="label then">Then</span>{{STORY_THEN}}</p>
+        <p class="now"><span class="label now">Now</span>{{STORY_NOW}}</p>
+    </article>
+    <!-- /STORIES -->
+
+    <footer>
+        <p>{{CLOSING}}</p>
+        <p>
+            <a href="index.html">&larr; Weekly Claw archive</a> &nbsp;&middot;&nbsp;
+            <a href="../daily-caw/index.html">The Daily Caw (archived)</a> &nbsp;&middot;&nbsp;
+            <a href="../index.html">The nest</a>
+        </p>
+        <p>&copy; 2026 The Weekly Claw &mdash; All Rights Reserved by the Crow</p>
+    </footer>
+</body>
+</html>
